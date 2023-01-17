@@ -2,16 +2,40 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 import { useState } from "react";
 export default function App() {
-  const [count, increment] = useState(0);
   const [list, setList] = useState(["mango", "sango", "ango"]);
   const [currInputVal, setCurrInputVal] = useState("");
 
-  const hanndleAddItem = () => {
+  const handleAddItem = () => {
     let ar = [...list];
     ar.push(currInputVal);
     setList(ar);
   };
-  const items = list.map((item, key) => <Text>{item}</Text>);
+  const handleDeleteItem = (item) => {
+    let ar = [...list];
+    ar = ar.filter((i) => i != item);
+    setList(ar);
+  };
+  const items = list.map((item, key) => (
+    <View
+      style={{
+        flexDirection: "row",
+        marginBottom: 10,
+        justifyContent: "space-around",
+      }}
+      key={key}
+    >
+      <Text
+        key={key}
+        style={{
+          fontSize: 20,
+          paddingBottom: 10,
+        }}
+      >
+        {item}
+      </Text>
+      <Button title="Delete" onPress={() => handleDeleteItem(item)}></Button>
+    </View>
+  ));
   return (
     <View style={styles.container}>
       <Text
@@ -49,7 +73,7 @@ export default function App() {
         }}
       ></View>
       <Button
-        onPress={hanndleAddItem}
+        onPress={handleAddItem}
         title="Add Item"
         style={{
           margin: 5,
