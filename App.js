@@ -7,6 +7,14 @@ export default function App() {
 
   const handleAddItem = () => {
     let ar = [...list];
+
+    for (let i = 0; i < ar.length; i++) {
+      if (ar[i] == currInputVal) {
+        alert("Item already exist!");
+        return;
+      }
+    }
+
     ar.push(currInputVal);
     setList(ar);
   };
@@ -74,7 +82,7 @@ export default function App() {
       ></View>
       <Button
         onPress={handleAddItem}
-        title="Add Item"
+        title="Add task"
         style={{
           margin: 5,
         }}
